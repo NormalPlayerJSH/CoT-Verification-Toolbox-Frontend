@@ -13,7 +13,7 @@ function EachResult({
     <button className="w-full flex gap-8 justify-between items-center bg-white py-4 px-4 shadow cursor-pointer rounded">
       <div className="font-semibold text-xl">{question}</div>
       <div className=" flex-shrink-0">
-        <div className="text-lg">{rate} / 5</div>
+        <div className="text-lg font-medium">{rate} / 5</div>
         <div className="text-sm">{date}</div>
       </div>
     </button>
