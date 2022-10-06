@@ -7,7 +7,7 @@ function TopBar() {
   return (
     <div className="w-full h-20 flex justify-between items-center px-8 gap-8 flex-shrink-0">
       {component}
-      <h1 className="font-bold text-2xl">LOGO</h1>
+      <h1 className="font-bold text-2xl">CoTEver</h1>
       <input
         type="text"
         className="w-full border-2 border-blue-300 rounded-full outline-none focus:border-blue-800 text-center px-8 py-2"
