@@ -1,40 +1,47 @@
-import React, { useRef, useEffect } from "react";
-import { ForceGraph2D } from 'react-force-graph';
-// import "./Graph.css";
+import React from 'react';
+import Tree from 'react-d3-tree';
 
-var data = {
-    nodes: [{ id: "A" }, { id: "B" }, { id: "C" }, { id: "D" }, { id: "E" }],
-    links: [
-        { source: "A", target: "B" },
-        { source: "A", target: "C" },
-        { source: "B", target: "D" },
-        { source: "C", target: "D" },
-        { source: "D", target: "E" }
-    ]
+const orgChart = {
+    name: 'CEO',
+    children: [
+        {
+            name: 'Manager',
+            attributes: {
+                department: 'Production',
+            },
+            children: [
+                {
+                    name: 'Foreman',
+                    attributes: {
+                        department: 'Fabrication',
+                    },
+                    children: [
+                        {
+                            name: 'Worker',
+                        },
+                    ],
+                },
+                {
+                    name: 'Foreman',
+                    attributes: {
+                        department: 'Assembly',
+                    },
+                    children: [
+                        {
+                            name: 'Worker',
+                        },
+                    ],
+                },
+            ],
+        },
+    ],
 };
 
 function Graph() {
-    const forceRef = useRef(null);
-    useEffect(() => {
-        forceRef.current.d3Force("charge").strength(-400);
-    })
     return (
-        <div className="Graph">
-            <ForceGraph2D
-                graphData={data}
-                nodeLabel="id"
-                linkCurvature="curvature"
-                enablePointerInteraction={true}
-                linkDirectionalParticleWidth={1}
-                ref={forceRef}
-                backgroundColor="#FFFFFF"
-                width={400}
-                height={740}
-                nodeRelSize={7}
-                nodeColor={nodes => "#DD7777"}
-                linkColor={links => "#000000"}
-                linkWidth={2}
-            />
+        // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
+        <div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
+            <Tree data={orgChart} />
         </div>
     );
 }
