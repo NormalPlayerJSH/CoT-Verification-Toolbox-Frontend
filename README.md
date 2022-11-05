@@ -22,4 +22,4 @@ CoTEver의 프론트엔드 부분 레포지토리입니다.
 * React-d3-tree로 변경
     * ~~창 크기 조절~~
     * ~~node onhover event~~
-    * node onclick event
+    * ~~node onclick event~~
