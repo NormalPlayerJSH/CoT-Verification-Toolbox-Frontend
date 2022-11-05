@@ -3,30 +3,29 @@ import { useEffect, useRef, useState } from 'react';
 import Tree from 'react-d3-tree';
 
 const orgChart = {
-    name: 'Start',
+
+    name: 'Step1',
+    attributes: {
+        solution: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty.",
+        link: "https://www.naver.com",
+    },
     children: [
         {
-            name: 'Step1',
+            name: 'Step2',
             attributes: {
-                solution: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty.",
-                link: "https://www.naver.com",
+                solution: 'None',
             },
             children: [
                 {
-                    name: 'Step2',
+                    name: 'Step3',
                     attributes: {
-                        solution: 'None',
+                        solution: 'None'
                     },
-                    children: [
-                        {
-                            name: 'Worker',
-                        },
-                    ],
                 },
             ],
         },
     ],
-};
+}
 
 const renderNodeWithCustomEvents = ({
     nodeDatum,
@@ -41,10 +40,6 @@ const renderNodeWithCustomEvents = ({
     </g>
 );
 
-const solutions = {
-    1: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty."
-};
-
 function Graph(props) {
     const ref = useRef(null);
     const [height, setHeight] = useState(0);
@@ -54,7 +49,7 @@ function Graph(props) {
         setWidth(ref.current.offsetWidth);
     }, []);
     const handleNodeHover = (nodeDatum) => {
-        props.setSolution(solutions[1])
+        props.setSolution(nodeDatum.attributes.solution)
     };
     const handleNodeClick = (nodeDatum) => {
         window.open(nodeDatum.attributes.link)
