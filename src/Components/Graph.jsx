@@ -3,29 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 import Tree from 'react-d3-tree';
 
 const orgChart = {
-    name: 'CEO',
+    name: 'Start',
     children: [
         {
-            name: 'Manager',
+            name: 'Step1',
             attributes: {
-                department: 'Production',
+                solution: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty.",
             },
             children: [
                 {
-                    name: 'Foreman',
+                    name: 'Step2',
                     attributes: {
-                        department: 'Fabrication',
-                    },
-                    children: [
-                        {
-                            name: 'Worker',
-                        },
-                    ],
-                },
-                {
-                    name: 'Foreman',
-                    attributes: {
-                        department: 'Assembly',
+                        solution: 'None',
                     },
                     children: [
                         {
@@ -38,7 +27,11 @@ const orgChart = {
     ],
 };
 
-function Graph() {
+const solutions = {
+    1: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty."
+};
+
+function Graph(props) {
     const ref = useRef(null);
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
@@ -52,6 +45,9 @@ function Graph() {
                 data={orgChart}
                 orientation="vertical"
                 translate={{ x: width / 2, y: height / 5 }}
+                onNodeMouseOver={() => {
+                    props.setSolution(solutions[1])
+                }}
             />
         </div>
     );
