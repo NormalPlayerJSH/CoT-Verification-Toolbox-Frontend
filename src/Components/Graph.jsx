@@ -9,6 +9,7 @@ const orgChart = {
             name: 'Step1',
             attributes: {
                 solution: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty.",
+                link: "https://www.naver.com",
             },
             children: [
                 {
@@ -27,6 +28,19 @@ const orgChart = {
     ],
 };
 
+const renderNodeWithCustomEvents = ({
+    nodeDatum,
+    handleNodeHover,
+    handleNodeClick
+}) => (
+    <g>
+        <circle r="15" onClick={() => handleNodeClick(nodeDatum)} onMouseOver={() => handleNodeHover(nodeDatum)} />
+        <text fill="black" strokeWidth="1" x="20">
+            {nodeDatum.name}
+        </text>
+    </g>
+);
+
 const solutions = {
     1: "The Statue of Freedom is in Washington D.C., which is about 300 miles from the Statue of Liberty."
 };
@@ -39,15 +53,21 @@ function Graph(props) {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
     }, []);
+    const handleNodeHover = (nodeDatum) => {
+        props.setSolution(solutions[1])
+    };
+    const handleNodeClick = (nodeDatum) => {
+        window.open(nodeDatum.attributes.link)
+    };
     return (
         <div id="treeWrapper" ref={ref} style={{ margin: '0', padding: '0', width: '100%', height: '100%' }}>
             <Tree
                 data={orgChart}
                 orientation="vertical"
                 translate={{ x: width / 2, y: height / 5 }}
-                onNodeMouseOver={() => {
-                    props.setSolution(solutions[1])
-                }}
+                renderCustomNodeElement={(rd3tProps) =>
+                    renderNodeWithCustomEvents({ ...rd3tProps, handleNodeHover, handleNodeClick })
+                }
             />
         </div>
     );
