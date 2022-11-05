@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Tree from 'react-d3-tree';
 
 const orgChart = {
@@ -38,10 +39,20 @@ const orgChart = {
 };
 
 function Graph() {
+    const ref = useRef(null);
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
+    useEffect(() => {
+        setHeight(ref.current.offsetHeight);
+        setWidth(ref.current.offsetWidth);
+    }, []);
     return (
-        // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
-        <div id="treeWrapper" style={{ width: '50em', height: '20em' }}>
-            <Tree data={orgChart} />
+        <div id="treeWrapper" ref={ref} style={{ margin: '0', padding: '0', width: '100%', height: '100%' }}>
+            <Tree
+                data={orgChart}
+                orientation="vertical"
+                translate={{ x: width / 2, y: height / 5 }}
+            />
         </div>
     );
 }
