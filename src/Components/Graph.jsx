@@ -59,7 +59,7 @@ function Graph(props) {
             <Tree
                 data={orgChart}
                 orientation="vertical"
-                translate={{ x: width / 2, y: height / 5 }}
+                translate={{ x: width / 2, y: height / 4.5 }}
                 renderCustomNodeElement={(rd3tProps) =>
                     renderNodeWithCustomEvents({ ...rd3tProps, handleNodeHover, handleNodeClick })
                 }
