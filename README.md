@@ -23,6 +23,6 @@ CoTEver의 프론트엔드 부분 레포지토리입니다.
     * ~~창 크기 조절~~
     * ~~node onhover event~~
     * ~~node onclick event~~
-    * json 기반으로 동적 Tree 생성
+    * ~~json 기반으로 동적 Tree 생성~~
     * Tree 디자인
     * 노드마다 keyword가 있으면 좋지 않을까?
