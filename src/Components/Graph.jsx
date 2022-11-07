@@ -19,7 +19,6 @@ const renderNodeWithCustomEvents = ({
 
 function Graph(props) {
     const ref = useRef(null);
-    const [orgChart, setOrgChart] = useState({});
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const chartData = JSON.parse(JSON.stringify(data));
@@ -33,7 +32,7 @@ function Graph(props) {
         children: [],
     };
     const makeChart = (stepCount, chartData, target) => {
-        if (stepCount == 0) {
+        if (stepCount === 0) {
             target.name = "Step" + String(stepCount + 1);
             target.attributes.subquery = chartData["nodeList"][stepCount]["subQuery"];
             target.attributes.solution = chartData["nodeList"][stepCount]["solution"];
@@ -62,10 +61,10 @@ function Graph(props) {
         return;
     };
     makeChart(0, chartData, tempChart);
+    const orgChart = tempChart;
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
-        setOrgChart(tempChart);
     }, []);
     const handleNodeHover = (nodeDatum) => {
         const text = nodeDatum.attributes.subquery + "\n" + nodeDatum.attributes.solution;
