@@ -1,0 +1,16 @@
+{
+    "query": "Test Query.",
+    "stepCount": 2,
+    "nodeList": [
+        {
+            "subQuery": "subquery1",
+            "solution": "solution1",
+            "url": "www.naver.com"
+        },
+        {
+            "subQuery": "subquery2",
+            "solution": "solution2",
+            "url": "www.google.com"
+        }
+    ]
+}
