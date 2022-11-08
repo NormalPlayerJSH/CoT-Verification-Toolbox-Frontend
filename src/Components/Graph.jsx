@@ -9,8 +9,8 @@ const renderNodeWithCustomEvents = ({
     handleNodeClick
 }) => (
     <g>
-        <circle r="15" onClick={() => handleNodeClick(nodeDatum)} onMouseOver={() => handleNodeHover(nodeDatum)} />
-        <text fill="black" strokeWidth="1" x="20">
+        <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onClick={() => handleNodeClick(nodeDatum)} onMouseOver={() => handleNodeHover(nodeDatum)} />
+        <text fill="black" strokeWidth="1" x="-20" y="-10">
             {nodeDatum.name}
         </text>
     </g>
@@ -67,7 +67,7 @@ function Graph(props) {
         setWidth(ref.current.offsetWidth);
     }, []);
     const handleNodeHover = (nodeDatum) => {
-        const text = nodeDatum.attributes.subquery + "\n" + nodeDatum.attributes.solution;
+        const text = " " + nodeDatum.attributes.subquery + "\n\n " + nodeDatum.attributes.solution;
         props.setSolution(text);
     };
     const handleNodeClick = (nodeDatum) => {

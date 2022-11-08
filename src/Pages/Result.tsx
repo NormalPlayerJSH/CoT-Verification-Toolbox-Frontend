@@ -9,7 +9,7 @@ function Result() {
       <div className="col-start-1 border">
         <Graph setSolution={setSolution} />
       </div>
-      <div className="col-start-2 border" style={{ whiteSpace: "pre-wrap" }}>
+      <div className="col-start-2 border" style={{ whiteSpace: "pre-wrap", fontFamily: "Verdana", fontSize: "20px" }}>
         {solution}
       </div>
       <div className="col-start-3 border p-4">
