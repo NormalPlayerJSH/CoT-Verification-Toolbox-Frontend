@@ -3,7 +3,7 @@
     "stepCount": 3,
     "nodeList": [
         {
-            "subQuery": "subquery1",
+            "subQuery": "Distance from Statue of Liberty",
             "solution": "solution1",
             "url": "http://www.naver.com"
         },
