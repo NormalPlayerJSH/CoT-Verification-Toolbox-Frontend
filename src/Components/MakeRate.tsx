@@ -176,10 +176,10 @@ function MakeRate() {
         const res = await postResult({
           ...data,
           finalAnswerRating:
-            Info.find((t) => t.innerType === 'rate' && t.type === 'subAnswer')
+            Info.find((t) => t.innerType === 'rate' && t.type === 'finalAnswer')
               ?.answer || -1,
           finalAnswerAlt:
-            Info.find((t) => t.innerType === 'text' && t.type === 'subAnswer')
+            Info.find((t) => t.innerType === 'text' && t.type === 'finalAnswer')
               ?.answer || '',
           nodeList: data.nodeList.map((t, i) => ({
             ...t,
