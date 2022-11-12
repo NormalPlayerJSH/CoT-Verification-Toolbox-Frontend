@@ -6,10 +6,10 @@ import data from "../db/db.json";
 const renderNodeWithCustomEvents = ({
     nodeDatum,
     handleNodeHover,
-    handleNodeClick
+    handleNodeOut
 }) => (
     <g>
-        <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onClick={() => handleNodeClick(nodeDatum)} onMouseOver={() => handleNodeHover(nodeDatum)} />
+        <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onMouseOut={() => handleNodeOut()} onMouseOver={() => handleNodeHover(nodeDatum)} />
         <text fill="black" strokeWidth="1" x="-20" y="-10">
             {nodeDatum.name}
         </text>
@@ -63,24 +63,25 @@ function Graph(props) {
     makeChart(0, chartData, tempChart);
     const orgChart = tempChart;
     const question = "Q: " + chartData["query"];
-    var fullAnswer = "";
+    var fullAnswer = question + "\n\n";
     for (var step = 0; step < chartData["stepCount"]; step++) {
         const subQuestion = "Step" + String(step + 1) + "\nQ: " + chartData["nodeList"][step]["subQuestion"];
         const subAnswer = "A: " + chartData["nodeList"][step]["subAnswer"];
         fullAnswer += (subQuestion + "\n" + subAnswer + "\n");
     }
-
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
         props.setAnswer(fullAnswer);
     }, []);
+
     const handleNodeHover = (nodeDatum) => {
         const text = " " + nodeDatum.attributes.subQuestion + "\n\n " + nodeDatum.attributes.subAnswer;
         props.setAnswer(text);
     };
-    const handleNodeClick = (nodeDatum) => {
-        window.open(nodeDatum.attributes.link);
+    const handleNodeOut = () => {
+        const text = fullAnswer;
+        props.setAnswer(text);
     };
 
     return (
@@ -90,7 +91,7 @@ function Graph(props) {
                 orientation="vertical"
                 translate={{ x: width / 2, y: height / 4.5 }}
                 renderCustomNodeElement={(rd3tProps) =>
-                    renderNodeWithCustomEvents({ ...rd3tProps, handleNodeHover, handleNodeClick })
+                    renderNodeWithCustomEvents({ ...rd3tProps, handleNodeHover, handleNodeOut })
                 }
             />
         </div>
