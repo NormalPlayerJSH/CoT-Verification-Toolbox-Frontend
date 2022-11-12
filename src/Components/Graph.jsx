@@ -73,6 +73,14 @@ function Graph(props) {
     const handleNodeClick = (nodeDatum) => {
         window.open(nodeDatum.attributes.link);
     };
+    const question = "Q: " + chartData["query"];
+    var fullAnswer = "";
+    for (var step = 0; step < chartData["stepCount"]; step++) {
+        const subQuestion = "Step" + String(step + 1) + "\nQ: " + chartData["nodeList"][step]["subQuestion"];
+        const subAnswer = "A: " + chartData["nodeList"][step]["subAnswer"];
+        fullAnswer += (subQuestion + "\n" + subAnswer + "\n");
+    }
+    props.setAnswer(fullAnswer)
     return (
         <div id="treeWrapper" ref={ref} style={{ margin: '0', padding: '0', width: '100%', height: '100%' }}>
             <Tree
