@@ -13,6 +13,9 @@ const renderNodeWithCustomEvents = ({
         <text fill="black" strokeWidth="1" x="-20" y="-10">
             {nodeDatum.name}
         </text>
+        <text fill="black" strokeWidth="1" x="-100" y="15">
+            {nodeDatum.attributes.subQuestionKeyword}
+        </text>
     </g>
 );
 
