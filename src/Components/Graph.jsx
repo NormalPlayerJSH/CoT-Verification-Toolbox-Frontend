@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Tree from 'react-d3-tree';
+import useSWR from 'swr';
+import { getQuery } from '../api';
 import data from "../db/db.json";
 
 const renderNodeWithCustomEvents = ({
@@ -24,7 +26,18 @@ function Graph(props) {
     const ref = useRef(null);
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
-    const chartData = JSON.parse(JSON.stringify(data));
+    const { data: chartData } = useSWR('/query', () => getQuery('hello'), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+      });
+    // const chartData = JSON.parse(JSON.stringify(data));
+    useEffect(() => {
+        setHeight(ref.current.offsetHeight);
+        setWidth(ref.current.offsetWidth);
+        props.setAnswer(fullAnswer);
+    }, []);
+    if (!chartData) return <></>
     const tempChart = {
         name: '',
         attributes: {
@@ -79,7 +92,7 @@ function Graph(props) {
         }
         return;
     };
-    makeChart(0, chartData, tempChart);
+    chartData && makeChart(0, chartData, tempChart);
     const orgChart = tempChart;
     const question = "Q: " + chartData["query"];
     var fullAnswer = question + "\n\n";
@@ -89,11 +102,6 @@ function Graph(props) {
         fullAnswer += (subQuestion + "\n" + subAnswer + "\n\n");
     }
     fullAnswer += chartData["finalExplanation"] + "\n\n" + chartData["finalAnswer"];
-    useEffect(() => {
-        setHeight(ref.current.offsetHeight);
-        setWidth(ref.current.offsetWidth);
-        props.setAnswer(fullAnswer);
-    }, []);
 
     const handleNodeHover = (nodeDatum) => {
         var text = "SubQ: " + nodeDatum.attributes.subQuestion + "\n\nSubA: " + nodeDatum.attributes.subAnswer + "\n\n";

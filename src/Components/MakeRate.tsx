@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
+import { getQuery } from '../api';
+import data from '../db/db.json';
+import { queryI } from '../types';
 
 export interface questionInfo {
   type: 'subAnswer' | 'finalAnswer';
@@ -104,22 +108,28 @@ function NowRate({
 }
 
 function MakeRate() {
+  const { data } = useSWR('/query', () => getQuery('hello'), {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
   const [Info, setInfo] = useState<questionInfo[]>([]);
   const lastRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (!data) return;
     setInfo([
-      ...dummyData.sub.flatMap<questionInfo>((t, i) => [
+      ...data.nodeList.flatMap<questionInfo>((t, i) => [
         {
           type: 'subAnswer',
           innerType: 'rate',
-          text: t,
+          text: t.subAnswer,
           question: `Step ${i + 1}은(는) 합당한가요?`,
           answer: null,
         },
         {
           type: 'subAnswer',
           innerType: 'text',
-          text: t,
+          text: t.subAnswer,
           question: `더 나은 Step ${i + 1}을(를) 입력해주세요!`,
           answer: null,
         },
@@ -127,19 +137,19 @@ function MakeRate() {
       {
         type: 'finalAnswer',
         innerType: 'rate',
-        text: dummyData.final,
+        text: data.finalAnswer,
         question: '정답은 합당한가요?',
         answer: null,
       },
       {
         type: 'finalAnswer',
         innerType: 'text',
-        text: dummyData.final,
+        text: data.finalAnswer,
         question: '더 나은 정답을 입력해주세요!',
         answer: null,
       },
     ]);
-  }, []);
+  }, [data]);
   const getNow = (info: questionInfo[]) => {
     return info.reduce((prev, curr) => {
       if (prev.length === 0) return [curr];
