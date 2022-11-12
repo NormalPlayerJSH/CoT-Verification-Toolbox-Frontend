@@ -26,8 +26,9 @@ function Graph(props) {
         name: '',
         attributes: {
             subQuestion: '',
+            subQuestionKeyword: '',
             subAnswer: '',
-            link: '',
+            top5List: []
         },
         children: [],
     };
@@ -36,7 +37,14 @@ function Graph(props) {
             target.name = "Step" + String(stepCount + 1);
             target.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
             target.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
-            target.attributes.link = chartData["nodeList"][stepCount]["url"];
+            target.attributes.subQuestionKeyword = chartData["nodeList"][stepCount]["subQuestionKeyword"];
+            for (var i = 0; i < 5; i++) {
+                var node = {
+                    first: chartData["nodeList"][stepCount]["top5List"][i]["first"],
+                    second: chartData["nodeList"][stepCount]["top5List"][i]["second"]
+                };
+                target.attributes.top5List.push(node);
+            }
             makeChart(stepCount + 1, chartData, target)
             return;
         }
@@ -45,15 +53,23 @@ function Graph(props) {
                 name: '',
                 attributes: {
                     subQuestion: '',
+                    subQuestionKeyword: '',
                     subAnswer: '',
-                    link: '',
+                    top5List: []
                 },
                 children: [],
             };
             temp.name = "Step" + String(stepCount + 1);
             temp.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
             temp.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
-            temp.attributes.link = chartData["nodeList"][stepCount]["url"];
+            temp.attributes.subQuestionKeyword = chartData["nodeList"][stepCount]["subQuestionKeyword"];
+            for (var i = 0; i < 5; i++) {
+                var node = {
+                    first: chartData["nodeList"][stepCount]["top5List"][i]["first"],
+                    second: chartData["nodeList"][stepCount]["top5List"][i]["second"]
+                };
+                temp.attributes.top5List.push(node);
+            }
             target.children.push(temp);
             makeChart(stepCount + 1, chartData, target.children[0]);
             return;
@@ -67,9 +83,9 @@ function Graph(props) {
     for (var step = 0; step < chartData["stepCount"]; step++) {
         const subQuestion = "Step" + String(step + 1) + "\nQ: " + chartData["nodeList"][step]["subQuestion"];
         const subAnswer = "A: " + chartData["nodeList"][step]["subAnswer"];
-        fullAnswer += (subQuestion + "\n" + subAnswer + "\n");
+        fullAnswer += (subQuestion + "\n" + subAnswer + "\n\n");
     }
-    fullAnswer += "\n" + chartData["finalExplanation"] + "\n\n" + chartData["finalAnswer"];
+    fullAnswer += chartData["finalExplanation"] + "\n\n" + chartData["finalAnswer"];
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
@@ -77,7 +93,12 @@ function Graph(props) {
     }, []);
 
     const handleNodeHover = (nodeDatum) => {
-        const text = " " + nodeDatum.attributes.subQuestion + "\n\n " + nodeDatum.attributes.subAnswer;
+        var text = "SubQ: " + nodeDatum.attributes.subQuestion + "\n\nSubA: " + nodeDatum.attributes.subAnswer + "\n\n";
+        for (var i = 0; i < 5; i++) {
+            var topList = "Document" + String(i + 1) + "\n";
+            topList += nodeDatum.attributes.top5List[i].second + "\n" + "Document URL: " + nodeDatum.attributes.top5List[i].first + "\n";
+            text += topList + "\n"
+        }
         props.setAnswer(text);
     };
     const handleNodeOut = () => {
