@@ -16,6 +16,7 @@
     "react-force-graph": "^1.41.14",
     "react-force-graph-2d": "^1.23.11",
     "react-scripts": "^5.0.1",
+    "start": "^5.1.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
