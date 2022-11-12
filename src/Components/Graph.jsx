@@ -69,6 +69,7 @@ function Graph(props) {
         const subAnswer = "A: " + chartData["nodeList"][step]["subAnswer"];
         fullAnswer += (subQuestion + "\n" + subAnswer + "\n");
     }
+    fullAnswer += "\n" + chartData["finalExplanation"] + "\n\n" + chartData["finalAnswer"];
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
