@@ -11,3 +11,16 @@ export interface queryI {
   stepCount: number;
   nodeList: querySubNodeI[];
 }
+
+export interface resultI {
+  query: string;
+  finalAnswer: string;
+  finalExplanation: string;
+  stepCount: number;
+  nodeList: (querySubNodeI & {
+    subAnswerRating: number;
+    subAnswerAlt: string;
+  })[];
+  finalAnswerRating: number | string;
+  finalAnswerAlt: string | number;
+}

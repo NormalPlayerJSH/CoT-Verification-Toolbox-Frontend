@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
-import { getQuery } from '../api';
+import { getQuery, postResult } from '../api';
 import data from '../db/db.json';
 import { queryI } from '../types';
 
@@ -165,7 +165,30 @@ function MakeRate() {
       now.length !== 0 &&
       now[now.length - 1].answer !== null
     ) {
-      console.log(now);
+      (async () => {
+        if (!data) return;
+        const rateList = Info.filter(
+          (t) => t.innerType === 'rate' && t.type === 'subAnswer',
+        );
+        const textList = Info.filter(
+          (t) => t.innerType === 'text' && t.type === 'subAnswer',
+        );
+        const res = await postResult({
+          ...data,
+          finalAnswerRating:
+            Info.find((t) => t.innerType === 'rate' && t.type === 'subAnswer')
+              ?.answer || -1,
+          finalAnswerAlt:
+            Info.find((t) => t.innerType === 'text' && t.type === 'subAnswer')
+              ?.answer || '',
+          nodeList: data.nodeList.map((t, i) => ({
+            ...t,
+            subAnswerAlt: (textList[i].answer as any as string) || '',
+            subAnswerRating: (rateList[i].answer as any as number) || -1,
+          })),
+        });
+        console.log(res);
+      })();
     }
   }, [Info]);
 
