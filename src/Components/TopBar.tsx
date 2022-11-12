@@ -13,12 +13,12 @@ function TopBar() {
         className="w-full border-2 border-blue-300 rounded-full outline-none focus:border-blue-800 text-center px-8 py-2"
         placeholder="검색 명제를 입력하세요"
       />
-      <button
+      {/* <button
         className=" shrink-0 cursor-pointer"
         onClick={() => openPopup(<PastResult />)}
       >
         과거 검색결과
-      </button>
+      </button> */}
     </div>
   );
 }
