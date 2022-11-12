@@ -1,21 +1,60 @@
 {
-    "query": "Test Query.",
-    "stepCount": 3,
+    "query": "독수리의 부리는 왜 노랄까?",
+    "stepCount": 2,
     "nodeList": [
         {
-            "subQuery": "subquery1",
-            "solution": "solution1",
-            "url": "http://www.naver.com"
+            "subQuestion": "subquery1",
+            "subQuestionKeyword": "keyword1",
+            "subAnswer": "solution1",
+            "top5List": [
+                {
+                    "first": "www.naver.com",
+                    "second": "A"
+                },
+                {
+                    "first": "www.naverB.com",
+                    "second": "B"
+                },
+                {
+                    "first": "www.naverC.com",
+                    "second": "C"
+                },
+                {
+                    "first": "www.naverC.com",
+                    "second": "D"
+                },
+                {
+                    "first": "www.naverC.com",
+                    "second": "E"
+                }
+            ]
         },
         {
-            "subQuery": "subquery2",
-            "solution": "solution2",
-            "url": "http://www.google.com"
-        },
-        {
-            "subQuery": "subquery3",
-            "solution": "solution3",
-            "url": "www.google.com"
+            "subQuestion": "subquery2",
+            "subQuestionKeyword": "keyword2",
+            "subAnswer": "solution2",
+            "top5List": [
+                {
+                    "first": "www.google.com",
+                    "second": "A"
+                },
+                {
+                    "first": "www.googleB.com",
+                    "second": "B"
+                },
+                {
+                    "first": "www.googleC.com",
+                    "second": "C"
+                },
+                {
+                    "first": "www.googleD.com",
+                    "second": "D"
+                },
+                {
+                    "first": "www.googleE.com",
+                    "second": "E"
+                }
+            ]
         }
     ]
 }
