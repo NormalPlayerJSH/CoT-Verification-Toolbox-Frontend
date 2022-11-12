@@ -36,8 +36,8 @@ function Graph(props) {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
         props.setAnswer(fullAnswer);
-    }, []);
-    if (!chartData) return <></>
+    }, [chartData]);
+    if (!chartData) return (<div id="treeWrapper" ref={ref} style={{ margin: '0', padding: '0', width: '100%', height: '100%' }} />)
     const tempChart = {
         name: '',
         attributes: {
