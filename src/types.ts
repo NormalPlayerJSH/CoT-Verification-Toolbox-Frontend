@@ -23,4 +23,6 @@ export interface resultI {
   })[];
   finalAnswerRating: number | string;
   finalAnswerAlt: string | number;
+  finalExplanationRating: number | string;
+  finalExplanationAlt: string | number;
 }

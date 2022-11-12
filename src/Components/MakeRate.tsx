@@ -5,7 +5,7 @@ import data from '../db/db.json';
 import { queryI } from '../types';
 
 export interface questionInfo {
-  type: 'subAnswer' | 'finalAnswer';
+  type: 'subAnswer' | 'finalAnswer' | 'finalExplanation';
   innerType: 'rate' | 'text';
   question: string;
   text: string;
@@ -135,6 +135,20 @@ function MakeRate() {
         },
       ]),
       {
+        type: 'finalExplanation',
+        innerType: 'rate',
+        text: data.finalExplanation,
+        question: '최종 설명은 합당한가요?',
+        answer: null,
+      },
+      {
+        type: 'finalExplanation',
+        innerType: 'text',
+        text: data.finalExplanation,
+        question: '더 나은 최종 설명을 입력해주세요!',
+        answer: null,
+      },
+      {
         type: 'finalAnswer',
         innerType: 'rate',
         text: data.finalAnswer,
@@ -181,6 +195,14 @@ function MakeRate() {
           finalAnswerAlt:
             Info.find((t) => t.innerType === 'text' && t.type === 'finalAnswer')
               ?.answer || '',
+          finalExplanationRating:
+            Info.find(
+              (t) => t.innerType === 'rate' && t.type === 'finalExplanation',
+            )?.answer || -1,
+          finalExplanationAlt:
+            Info.find(
+              (t) => t.innerType === 'text' && t.type === 'finalExplanation',
+            )?.answer || '',
           nodeList: data.nodeList.map((t, i) => ({
             ...t,
             subAnswerAlt: (textList[i].answer as any as string) || '',
