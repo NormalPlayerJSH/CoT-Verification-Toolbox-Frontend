@@ -25,8 +25,8 @@ function Graph(props) {
     const tempChart = {
         name: '',
         attributes: {
-            subquery: '',
-            solution: '',
+            subQuestion: '',
+            subAnswer: '',
             link: '',
         },
         children: [],
@@ -34,8 +34,8 @@ function Graph(props) {
     const makeChart = (stepCount, chartData, target) => {
         if (stepCount === 0) {
             target.name = "Step" + String(stepCount + 1);
-            target.attributes.subquery = chartData["nodeList"][stepCount]["subQuery"];
-            target.attributes.solution = chartData["nodeList"][stepCount]["solution"];
+            target.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
+            target.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
             target.attributes.link = chartData["nodeList"][stepCount]["url"];
             makeChart(stepCount + 1, chartData, target)
             return;
@@ -44,15 +44,15 @@ function Graph(props) {
             const temp = {
                 name: '',
                 attributes: {
-                    subquery: '',
-                    solution: '',
+                    subQuestion: '',
+                    subAnswer: '',
                     link: '',
                 },
                 children: [],
             };
             temp.name = "Step" + String(stepCount + 1);
-            temp.attributes.subquery = chartData["nodeList"][stepCount]["subQuery"];
-            temp.attributes.solution = chartData["nodeList"][stepCount]["solution"];
+            temp.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
+            temp.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
             temp.attributes.link = chartData["nodeList"][stepCount]["url"];
             target.children.push(temp);
             makeChart(stepCount + 1, chartData, target.children[0]);
@@ -67,8 +67,8 @@ function Graph(props) {
         setWidth(ref.current.offsetWidth);
     }, []);
     const handleNodeHover = (nodeDatum) => {
-        const text = " " + nodeDatum.attributes.subquery + "\n\n " + nodeDatum.attributes.solution;
-        props.setSolution(text);
+        const text = " " + nodeDatum.attributes.subQuestion + "\n\n " + nodeDatum.attributes.subAnswer;
+        props.setAnswer(text);
     };
     const handleNodeClick = (nodeDatum) => {
         window.open(nodeDatum.attributes.link);
