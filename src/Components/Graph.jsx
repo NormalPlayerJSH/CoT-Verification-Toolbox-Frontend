@@ -10,11 +10,8 @@ const renderNodeWithCustomEvents = ({
 }) => (
     <g>
         <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onMouseOut={() => handleNodeOut()} onMouseOver={() => handleNodeHover(nodeDatum)} />
-        <text fill="black" strokeWidth="1" x="-20" y="-10">
+        <text fill="black" strokeWidth="1" x="-20" y="5">
             {nodeDatum.name}
-        </text>
-        <text fill="black" strokeWidth="1" x="-100" y="15">
-            {nodeDatum.attributes.subQuestionKeyword}
         </text>
     </g>
 );
@@ -29,7 +26,6 @@ function Graph(props) {
         name: '',
         attributes: {
             subQuestion: '',
-            subQuestionKeyword: '',
             subAnswer: '',
             top5List: []
         },
@@ -40,7 +36,6 @@ function Graph(props) {
             target.name = "Step" + String(stepCount + 1);
             target.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
             target.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
-            target.attributes.subQuestionKeyword = chartData["nodeList"][stepCount]["subQuestionKeyword"];
             for (var i = 0; i < 5; i++) {
                 var node = {
                     first: chartData["nodeList"][stepCount]["top5List"][i]["first"],
@@ -56,7 +51,6 @@ function Graph(props) {
                 name: '',
                 attributes: {
                     subQuestion: '',
-                    subQuestionKeyword: '',
                     subAnswer: '',
                     top5List: []
                 },
@@ -65,7 +59,6 @@ function Graph(props) {
             temp.name = "Step" + String(stepCount + 1);
             temp.attributes.subQuestion = chartData["nodeList"][stepCount]["subQuestion"];
             temp.attributes.subAnswer = chartData["nodeList"][stepCount]["subAnswer"];
-            temp.attributes.subQuestionKeyword = chartData["nodeList"][stepCount]["subQuestionKeyword"];
             for (var i = 0; i < 5; i++) {
                 var node = {
                     first: chartData["nodeList"][stepCount]["top5List"][i]["first"],
