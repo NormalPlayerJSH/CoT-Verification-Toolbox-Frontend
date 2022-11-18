@@ -12,6 +12,7 @@ function Result() {
       <div
         className="col-start-2 border overflow-y-auto"
         style={{
+          overflow: "scroll",
           whiteSpace: 'pre-wrap',
           fontFamily: 'Verdana',
           fontSize: '20px',
