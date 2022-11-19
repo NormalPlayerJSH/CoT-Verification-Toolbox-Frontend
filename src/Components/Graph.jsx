@@ -38,7 +38,7 @@ function Graph(props) {
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
-        if (!chartData && !q) props.setAnswer('검색 명제를 입력해주세요.')
+        if (!chartData && !q) props.setAnswer('Please ask any questions you may have!')
         else if (!chartData) props.setAnswer('Loading...')
         else props.setAnswer(fullAnswer);
     }, [chartData, q]);
