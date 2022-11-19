@@ -80,7 +80,7 @@ function NowRate({
           onSubmit={(e) => {
             e.preventDefault();
             const answer = (e.target as any)[0].value.trim();
-            handler(answer.length === 0 ? '없음' : answer);
+            handler(answer.length === 0 ? 'None' : answer);
           }}
         >
           <input
@@ -91,15 +91,15 @@ function NowRate({
             <button
               className="w-full bg-gray-200 hover:bg-gray-500 hover:text-white rounded py-2"
               type="button"
-              onClick={() => handler('없음')}
+              onClick={() => handler('None')}
             >
-              없음
+              None
             </button>
             <button
               className="w-full bg-red-200 hover:bg-red-500 hover:text-white rounded py-2"
               type="submit"
             >
-              확인
+              Submit
             </button>
           </div>
         </form>
@@ -245,7 +245,7 @@ function MakeRate() {
       {nowShowing.length === Info.length &&
         nowShowing.length !== 0 &&
         nowShowing[nowShowing.length - 1].answer !== null && (
-          <div>답변해주셔서 감사합니다!</div>
+          <div>Thank you for your effort!</div>
         )}
       <div ref={lastRef}></div>
     </div>
