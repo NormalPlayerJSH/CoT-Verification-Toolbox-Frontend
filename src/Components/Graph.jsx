@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Tree from 'react-d3-tree';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { getQuery } from '../api';
 import data from "../db/db.json";
@@ -26,7 +27,9 @@ function Graph(props) {
     const ref = useRef(null);
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
-    const { data: chartData } = useSWR('/query', () => getQuery('hello'), {
+    const [searchParams] = useSearchParams();
+    const q = searchParams.get('question');
+    const { data: chartData } = useSWR(q && `/query/${q}`, () => getQuery(q || ''), {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
@@ -35,8 +38,10 @@ function Graph(props) {
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
         setWidth(ref.current.offsetWidth);
-        props.setAnswer(fullAnswer);
-    }, [chartData]);
+        if (!chartData && !q) props.setAnswer('검색 명제를 입력해주세요.')
+        else if (!chartData) props.setAnswer('Loading...')
+        else props.setAnswer(fullAnswer);
+    }, [chartData, q]);
     if (!chartData) return (<div id="treeWrapper" ref={ref} style={{ margin: '0', padding: '0', width: '100%', height: '100%' }} />)
     const tempChart = {
         name: '',

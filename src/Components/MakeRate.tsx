@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { getQuery, postResult } from '../api';
 import data from '../db/db.json';
@@ -56,7 +57,7 @@ function NowRate({
   return (
     <div className="flex flex-col gap-3 items-center w-full">
       <div className="text-2xl">{info.question}</div>
-      <div className="w-full bg-gray-200 border-gray-500 border-2 border-dashed p-4">
+      <div className="w-full bg-gray-200 border-gray-500 border-2 border-dashed p-4 whitespace-pre-wrap">
         {info.text}
       </div>
       {info.innerType === 'rate' && (
@@ -108,7 +109,9 @@ function NowRate({
 }
 
 function MakeRate() {
-  const { data } = useSWR('/query', () => getQuery('hello'), {
+  const [searchParams] = useSearchParams();
+  const q = searchParams.get('question');
+  const { data } = useSWR(q && `/query/${q}`, () => getQuery(q || ''), {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -116,38 +119,41 @@ function MakeRate() {
   const [Info, setInfo] = useState<questionInfo[]>([]);
   const lastRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!data) return;
+    if (!data) {
+      setInfo([]);
+      return;
+    }
     setInfo([
       ...data.nodeList.flatMap<questionInfo>((t, i) => [
         {
           type: 'subAnswer',
           innerType: 'rate',
-          text: t.subAnswer,
+          text: `Q: ${t.subQuestion}\nA: ${t.subAnswer}`,
           question: `Is Step ${i + 1} reasonable? (1 to 5)`,
           answer: null,
         },
         {
           type: 'subAnswer',
           innerType: 'text',
-          text: t.subAnswer,
+          text: `Q: ${t.subQuestion}\nA: ${t.subAnswer}`,
           question: `Suggest a better alternative for Step ${i + 1}!`,
           answer: null,
         },
       ]),
-      {
-        type: 'finalExplanation',
-        innerType: 'rate',
-        text: data.finalExplanation,
-        question: 'Is the final explanation reasonable? (1 to 5)\nConsider the coherency with the previous explanations.',
-        answer: null,
-      },
-      {
-        type: 'finalExplanation',
-        innerType: 'text',
-        text: data.finalExplanation,
-        question: 'Suggest a better alternative for final explanation!',
-        answer: null,
-      },
+      // {
+      //   type: 'finalExplanation',
+      //   innerType: 'rate',
+      //   text: data.finalExplanation,
+      //   question: 'Is the final explanation reasonable? (1 to 5)\nConsider the coherency with the previous explanations.',
+      //   answer: null,
+      // },
+      // {
+      //   type: 'finalExplanation',
+      //   innerType: 'text',
+      //   text: data.finalExplanation,
+      //   question: 'Suggest a better alternative for final explanation!',
+      //   answer: null,
+      // },
       {
         type: 'finalAnswer',
         innerType: 'rate',
@@ -163,7 +169,7 @@ function MakeRate() {
         answer: null,
       },
     ]);
-  }, [data]);
+  }, [data, q]);
   const getNow = (info: questionInfo[]) => {
     return info.reduce((prev, curr) => {
       if (prev.length === 0) return [curr];

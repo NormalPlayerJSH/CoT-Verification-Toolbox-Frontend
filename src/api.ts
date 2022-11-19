@@ -9,11 +9,11 @@ export const axios = _axios.create({
 });
 
 export const getQuery = async (query: string) => {
-  // const { data } = await axios.post<rawQueryI>('/query', {
-  //   question: query,
-  // });
-  const data = d as any as rawQueryI;
-  console.log(data);
+  const { data } = await axios.post<rawQueryI>('/query', {
+    question: query,
+  });
+  // const data = d as any as rawQueryI;
+  // console.log(data);
   // return null
   if (!data) return null;
   const nodeList = Object.keys(data.explanation)
