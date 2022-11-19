@@ -12,6 +12,25 @@ export interface queryI {
   nodeList: querySubNodeI[];
 }
 
+export interface rawQueryI {
+  question: string;
+  output: { final_answer: string };
+  explanation: {
+    [x: string]: {
+      sub_question: string;
+      sub_answer: string;
+      evidence_document: {
+        [x: string]: {
+          url: string;
+          title: string;
+          document: string;
+          score: number;
+        };
+      };
+    };
+  };
+}
+
 export interface resultI {
   query: string;
   finalAnswer: string;
