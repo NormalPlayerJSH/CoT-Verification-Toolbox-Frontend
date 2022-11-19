@@ -8,12 +8,15 @@ import data from "../db/db.json";
 const renderNodeWithCustomEvents = ({
     nodeDatum,
     handleNodeHover,
-    handleNodeOut
+    handleNodeClick
 }) => (
     <g>
-        <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onMouseOut={() => handleNodeOut()} onMouseOver={() => handleNodeHover(nodeDatum)} />
-        <text fill="black" strokeWidth="1" x="-20" y="5">
+        <rect width="240" height="60" x="-120" y="-30" fill="#B5DAFF" rx="10" ry="10" strokeWidth="2" onClick={() => handleNodeClick()} onMouseOver={() => handleNodeHover(nodeDatum)} />
+        <text fill="black" strokeWidth="1" x="-20" y="10">
             {nodeDatum.name}
+        </text>
+        <text fill="black" strokeWidth="1" x="-100" y="-15" fontSize="10px">
+            * Hover for details, Click to return
         </text>
     </g>
 );
@@ -27,7 +30,7 @@ function Graph(props) {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
-      });
+    });
     // const chartData = JSON.parse(JSON.stringify(data));
     useEffect(() => {
         setHeight(ref.current.offsetHeight);
@@ -105,7 +108,7 @@ function Graph(props) {
         }
         props.setAnswer(text);
     };
-    const handleNodeOut = () => {
+    const handleNodeClick = () => {
         const text = fullAnswer;
         props.setAnswer(text);
     };
