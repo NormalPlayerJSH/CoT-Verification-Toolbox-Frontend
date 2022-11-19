@@ -11,7 +11,7 @@ function TopBar() {
       <input
         type="text"
         className="w-full border-2 border-blue-300 rounded-full outline-none focus:border-blue-800 text-center px-8 py-2"
-        placeholder="검색 명제를 입력하세요"
+        placeholder="Please ask any questions you may have!"
       />
       {/* <button
         className=" shrink-0 cursor-pointer"
