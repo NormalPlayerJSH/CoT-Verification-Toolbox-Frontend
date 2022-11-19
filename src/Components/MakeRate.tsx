@@ -123,14 +123,14 @@ function MakeRate() {
           type: 'subAnswer',
           innerType: 'rate',
           text: t.subAnswer,
-          question: `Step ${i + 1}은(는) 합당한가요?`,
+          question: `Is Step ${i + 1} reasonable? (1 to 5)`,
           answer: null,
         },
         {
           type: 'subAnswer',
           innerType: 'text',
           text: t.subAnswer,
-          question: `더 나은 Step ${i + 1}을(를) 입력해주세요!`,
+          question: `Suggest a better alternative for Step ${i + 1}!`,
           answer: null,
         },
       ]),
@@ -138,28 +138,28 @@ function MakeRate() {
         type: 'finalExplanation',
         innerType: 'rate',
         text: data.finalExplanation,
-        question: '최종 설명은 합당한가요?',
+        question: 'Is the final explanation reasonable? (1 to 5)\nConsider the coherency with the previous explanations.',
         answer: null,
       },
       {
         type: 'finalExplanation',
         innerType: 'text',
         text: data.finalExplanation,
-        question: '더 나은 최종 설명을 입력해주세요!',
+        question: 'Suggest a better alternative for final explanation!',
         answer: null,
       },
       {
         type: 'finalAnswer',
         innerType: 'rate',
         text: data.finalAnswer,
-        question: '정답은 합당한가요?',
+        question: 'Is the final answer reasonable? (1 to 5)',
         answer: null,
       },
       {
         type: 'finalAnswer',
         innerType: 'text',
         text: data.finalAnswer,
-        question: '더 나은 정답을 입력해주세요!',
+        question: 'Suggest a better alternative for final answer!',
         answer: null,
       },
     ]);
@@ -227,7 +227,7 @@ function MakeRate() {
   return (
     <div className="flex flex-col items-center w-full h-full gap-4">
       <div className="font-bold text-blue-700 text-2xl">
-        이 풀이과정을 평가해주세요!
+        Rate this Explanation!
       </div>
       {nowShowing.map((t, i) =>
         t.answer === null ? (
