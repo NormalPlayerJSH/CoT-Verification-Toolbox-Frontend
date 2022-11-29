@@ -1,5 +1,8 @@
-# CoT-Verification-Toolbox-Frontend
+- ## FrontEnd
+    FrontEnd sends user question to backend server, gets the answer/subanswers, and display it. It also sends user feedback to backend server.
 
-CoTEver의 프론트엔드 부분 레포지토리입니다.
+    - can be run on any platform
+    - use npm install to install required packages
+    - running on local environment, proxy value in package.json should be set as the address of the server
 
-[https://cotever.netlify.app/](https://cotever.netlify.app/) 에서 현재 메인 브랜치의 배포본을 확인하실 수 있습니다.
+distribution copy at : [https://cotever.netlify.app/](https://cotever.netlify.app/)
