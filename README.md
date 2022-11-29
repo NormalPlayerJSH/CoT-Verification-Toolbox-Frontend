@@ -1,7 +1,5 @@
 # CoT-Verification-Toolbox-Frontend
 
----
-
 - ## FrontEnd
     FrontEnd sends user question to backend server, gets the answer/subanswers, and display it. It also sends user feedback to backend server.
 
